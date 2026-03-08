@@ -1,8 +1,12 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
 
 app = FastAPI()
 
-@app.get("/")
-def sort_string(data: str):
-    sorted_chars = sorted(data)
+class InputData(BaseModel):
+    data: str
+
+@app.post("/")
+def sort_string(input: InputData):
+    sorted_chars = sorted(input.data)
     return {"word": sorted_chars}
